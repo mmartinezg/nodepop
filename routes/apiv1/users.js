@@ -5,12 +5,12 @@ let router = express.Router();
 let mongoose = require('mongoose');
 let Usuario = mongoose.model('Usuario');
 let jwt = require('jsonwebtoken');
+let sha256 = require('sha256');
 
 router.post('/login', function (req, res, next) {
     let email = req.body.email;
     let pass = req.body.pass;
-
-    let userRecord;
+    pass = sha256(pass);
     Usuario.getAdmin(email, pass, function(err, user){
         if(err){
             next(err);
@@ -33,7 +33,7 @@ router.post('/signup', function (req, res, next) {
     let jsonBody = {
         nombre : nombre,
         email : email,
-        clave : clave
+        clave : sha256(clave)
     };
     let usuario = new Usuario(jsonBody);
     usuario.save(function (err, user) {

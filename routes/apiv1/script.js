@@ -1,12 +1,13 @@
 "use strict";
 
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
-var mongoose = require('mongoose');
-var Anuncio = mongoose.model('Anuncio');
-var Usuario = mongoose.model('Usuario');
-var fs = require('fs');
+let mongoose = require('mongoose');
+let Anuncio = mongoose.model('Anuncio');
+let Usuario = mongoose.model('Usuario');
+let fs = require('fs');
+let sha256 = require('sha256');
 
 router.put('/', function (req, res, next) {
     //Leemos el archivo de anuncios y creamos los datos en MongoDB
@@ -15,7 +16,7 @@ router.put('/', function (req, res, next) {
         if(err){
             throw err;
         }
-        var preconfigJson = JSON.parse(data);
+        let preconfigJson = JSON.parse(data);
         deleteAnuncios();
         addAnuncios(preconfigJson.anuncios);
         deleteUsers();
@@ -29,7 +30,7 @@ router.put('/', function (req, res, next) {
 function addAnuncios(anuncios) {
 
     anuncios.forEach(function (anuncio) {
-        var mAnuncio = new Anuncio(anuncio);
+        let mAnuncio = new Anuncio(anuncio);
 
         mAnuncio.save(function (err, anuncioGuardado) {
             if(err){
@@ -64,7 +65,12 @@ function deleteUsers() {
 function addUsers(usuarios) {
 
     usuarios.forEach(function (usuario) {
-        var mUsuario = new Usuario(usuario);
+        let usuarioJson = {
+            nombre : usuario.nombre,
+            email : usuario.email,
+            clave : sha256(usuario.clave)
+        }
+        var mUsuario = new Usuario(usuarioJson);
 
         mUsuario.save(function (err, usuarioGuardado) {
             if(err){
