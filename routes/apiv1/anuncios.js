@@ -6,6 +6,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Anuncio = mongoose.model('Anuncio');
 
+//Devolvemos todos los tags
 router.get('/tags', function (req, res, next) {
     let fields = 'tags';
     let filter = {};
@@ -21,6 +22,7 @@ router.get('/tags', function (req, res, next) {
     });
 });
 
+//Devolvemos los anuncios pudiendo filtrar por tags, venta, nombre, precio y paginando
 router.get('/', function (req, res, next) {
     let tags = req.query.tags;
     let venta = req.query.venta;
@@ -71,7 +73,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
-
+//Creamos un anuncio
 router.post('/', function (req, res, next) {
     let anuncio = new Anuncio(req.body);
 
@@ -80,7 +82,7 @@ router.post('/', function (req, res, next) {
             next(err);
             return;
         }
-        res.json({success:true, agente: anuncioGuardado});
+        res.json({success:true, anuncio: anuncioGuardado});
     });
 
 });
