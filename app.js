@@ -11,6 +11,7 @@ require('./lib/mongoConnection');
 
 //cargo los modelos
 require('./models/Anuncio');
+require('./models/Usuario');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
