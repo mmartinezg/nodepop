@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
 
@@ -11,7 +13,6 @@ router.put('/', function (req, res, next) {
 
     fs.readFile('anuncios.json', 'utf8', function (err, data) {
         if(err){
-            console.log(err);
             throw err;
         }
         var preconfigJson = JSON.parse(data);

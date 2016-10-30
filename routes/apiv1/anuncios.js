@@ -6,6 +6,10 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Anuncio = mongoose.model('Anuncio');
 
+var jsonTokenAuth = require('../../lib/jsonToken');
+
+router.use(jsonTokenAuth());
+
 //Devolvemos todos los tags
 router.get('/tags', function (req, res, next) {
     let fields = 'tags';
@@ -55,7 +59,6 @@ router.get('/', function (req, res, next) {
             if(precio.split('-').length == 2 && precio.split('-')[1] !== '' && precio.split('-')[0] !== ''){
                filter.precio = filtroEntreDosValores(precio);
             }else if(precio.indexOf('-') === 0){
-                console.log('dfasdf', parseFloat(precio.substr(1)));
                 filter.precio = { '$lte' : parseFloat(precio.substr(1))};
             }else{
                 filter.precio = { '$gte': parseFloat(precio.substr(0, precio.length - 1)) };
