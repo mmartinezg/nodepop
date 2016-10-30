@@ -8,7 +8,6 @@ var usuarioSchema = mongoose.Schema({
     email: String,
     clave: String
 });
-//Auth.findOne({nick: 'noname'}, function(err,obj) { console.log(obj); });
 
 usuarioSchema.statics.getAdmin = function (email, pass, cb) {
     Usuario.findOne({email: email, clave: pass },function (err, user) {
