@@ -6,6 +6,21 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Anuncio = mongoose.model('Anuncio');
 
+router.get('/tags', function (req, res, next) {
+    let fields = 'tags';
+    let filter = {};
+    let sort = req.query.sort || null;
+    let limit = parseInt(req.query.limit) || null;
+    let start = parseInt(req.query.start) || 0;
+    Anuncio.list(filter, sort, limit, start, fields, function (err, anuncios) {
+        if(err){
+            next(err);
+            return;
+        }
+        res.json({success: true, anuncios: anuncios});
+    });
+});
+
 router.get('/', function (req, res, next) {
     let tags = req.query.tags;
     let venta = req.query.venta;
@@ -15,6 +30,7 @@ router.get('/', function (req, res, next) {
     let sort = req.query.sort || null;
     let limit = parseInt(req.query.limit) || null;
     let start = parseInt(req.query.start) || 0;
+    let fields = req.query.fields || null;
 
     let filter = {};
 
@@ -46,7 +62,7 @@ router.get('/', function (req, res, next) {
             filter.precio = parseFloat(precio);
         }
     }
-    Anuncio.list(filter, sort, limit, start, function (err, anuncios) {
+    Anuncio.list(filter, sort, limit, start, fields, function (err, anuncios) {
         if(err){
             next(err);
             return;

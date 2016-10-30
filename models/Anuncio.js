@@ -12,12 +12,13 @@ var anuncioSchema = mongoose.Schema({
 });
 
 
-anuncioSchema.statics.list = function (filter, sort, limit, start, cb) {
+anuncioSchema.statics.list = function (filter, sort, limit, start, fields, cb) {
     console.log(filter);
     let query = Anuncio.find(filter);
     query.sort(sort);
     query.limit(limit);
     query.skip(start);
+    query.select(fields);
     query.exec(function (err, anuncios) {
         if(err){
             cb(err);
