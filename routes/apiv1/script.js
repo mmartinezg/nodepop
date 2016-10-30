@@ -9,7 +9,7 @@ let Usuario = mongoose.model('Usuario');
 let fs = require('fs');
 let sha256 = require('sha256');
 
-router.put('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
     //Leemos el archivo de anuncios y creamos los datos en MongoDB
 
     fs.readFile('anuncios.json', 'utf8', function (err, data) {
