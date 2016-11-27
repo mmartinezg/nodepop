@@ -73,7 +73,7 @@ router.get('/', function (req, res, next) {
             return;
         }
         anuncios.forEach(function (anuncio) {
-            anuncio.foto = __dirname + anuncio.foto
+            anuncio.foto = '/images/' + anuncio.foto;
 ;        });
         res.json({success: true, anuncios: anuncios});
     });
