@@ -26,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+app.use('/', require('./routes/index'));
 app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
 app.use('/apiv1/users', require('./routes/apiv1/users'));
 app.use('/apiv1/script', require('./routes/apiv1/script'));
