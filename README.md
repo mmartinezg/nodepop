@@ -4,7 +4,7 @@ Para arrancar el servidor deberemos ejecutar en el terminal
 ```npm start```
 Una vez arrancado nuestro servidor, si es la primera vez que ejecutamos la aplicación cargaremos unos datos de
 prueba. Para ello lanzaremos en un navegador cualquiera la siguiente url
-[http://localhost:3000/apiv1/script](http://localhost:3000/apiv1/script) y se generarán unos anuncios de prueba
+[http://54.164.150.139:3001/apiv1/script](http://54.164.150.139:3001/apiv1/script) y se generarán unos anuncios de prueba
 y un usuario para problar la aplicación. El usuario de prueba sera el siguiente:
 ```
     "nombre": "Manuel",
